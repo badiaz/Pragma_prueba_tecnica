@@ -76,10 +76,11 @@ class BreedSearchDelegate extends SearchDelegate {
               itemBuilder: (context, index) {
                 final breed = results[index];
                 return ListTile(
-                  leading: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                    child: Hero(
-                      tag: breed.id,
+                  leading: Hero(
+                    tag: breed.id,
+                    child: ClipRRect(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
                       child: FadeInImage(
                         width: 50.0,
                         height: 50.0,

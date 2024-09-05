@@ -15,8 +15,7 @@ class BreedLoadingState extends BreedState {}
 
 class BreedLoadedState extends BreedState {
   final List<BreedEntity> breeds;
-  final List<BreedEntity>?
-      searchResults; // Resultados de búsqueda son opcionales
+  final List<BreedEntity>? searchResults;
   final bool hasReachedMax;
   const BreedLoadedState(
       {this.breeds = const [],

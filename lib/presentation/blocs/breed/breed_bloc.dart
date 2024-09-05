@@ -35,21 +35,25 @@ class BreedBloc extends Bloc<BreedEvent, BreedState> {
 
   Future<void> _onLoadMoreBreeds(
       LoadMoreBreedsEvent event, Emitter<BreedState> emit) async {
-    if (state is BreedLoadedState) {
-      final currentState = state as BreedLoadedState;
-      currentPage++;
-      final moreBreeds = await getBreedsUseCase.getBreeds(page: currentPage);
-      if (moreBreeds.isEmpty) {
-        emit(currentState.copyWith(hasReachedMax: true));
-      } else {
-        _allBreeds = currentState.breeds + moreBreeds;
-        emit(
-          BreedLoadedState(
-            breeds: currentState.breeds + moreBreeds,
-            hasReachedMax: false,
-          ),
-        );
+    try {
+      if (state is BreedLoadedState) {
+        final currentState = state as BreedLoadedState;
+        currentPage++;
+        final moreBreeds = await getBreedsUseCase.getBreeds(page: currentPage);
+        if (moreBreeds.isEmpty) {
+          emit(currentState.copyWith(hasReachedMax: true));
+        } else {
+          _allBreeds = currentState.breeds + moreBreeds;
+          emit(
+            BreedLoadedState(
+              breeds: currentState.breeds + moreBreeds,
+              hasReachedMax: false,
+            ),
+          );
+        }
       }
+    } catch (e) {
+      emit(const BreedErrorState('e'));
     }
   }
 

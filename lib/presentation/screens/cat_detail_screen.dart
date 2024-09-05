@@ -22,15 +22,14 @@ class CatDetailScreen extends StatelessWidget {
                     horizontal: 20.0, vertical: 10.0),
                 child: ListView(
                   children: [
-                    _buildInfoText(
-                        size, '* Description: ', catInfo!.description),
-                    _buildInfoText(size, '* Origin country: ', catInfo!.origin),
-                    _buildInfoText(size, '* Intelligence: ',
+                    _buildInfoText(size, 'Description: ', catInfo!.description),
+                    _buildInfoText(size, 'Origin country: ', catInfo!.origin),
+                    _buildInfoText(size, 'Intelligence: ',
                         '${catInfo!.intelligence.toString()}/5'),
-                    _buildInfoText(size, '* Adaptability: ',
+                    _buildInfoText(size, 'Adaptability: ',
                         '${catInfo!.adaptability.toString()}/5'),
                     _buildInfoText(
-                        size, '* Life Span: ', '${catInfo!.lifeSpan} years'),
+                        size, 'Life Span: ', '${catInfo!.lifeSpan} years'),
                   ],
                 ),
               ),
@@ -84,15 +83,15 @@ class CatDetailScreen extends StatelessWidget {
   }
 
   Widget _buildHeaderImage(Size size) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(15.0),
-          bottomRight: Radius.circular(15.0)),
-      child: SizedBox(
-        height: size.height * 0.5,
-        width: size.width,
-        child: Hero(
-          tag: catInfo!.id,
+    return Hero(
+      tag: catInfo!.id,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(15.0),
+            bottomRight: Radius.circular(15.0)),
+        child: SizedBox(
+          height: size.height * 0.5,
+          width: size.width,
           child: FadeInImage(
             width: size.width * 0.35,
             height: size.height * 0.17,

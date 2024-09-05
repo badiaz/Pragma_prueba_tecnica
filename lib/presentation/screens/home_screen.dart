@@ -161,14 +161,22 @@ class HomeScreenState extends State<HomeScreen> {
         }
       },
       builder: (context, state) {
+        if (state is BreedErrorState) {
+          return Expanded(
+            child: Center(
+              child: Icon(
+                Icons.wifi_off_outlined,
+                color: Colors.grey[400],
+                size: size.width * 0.4,
+              ),
+            ),
+          );
+        }
         if (state is BreedLoadedState) {
           return Expanded(
             child: ListView.separated(
-              controller: _scrollController, // Añadir el ScrollController
-              itemCount: state.breeds.length +
-                  (state.hasReachedMax
-                      ? 0
-                      : 1), // Añadir espacio para el loading indicator
+              controller: _scrollController,
+              itemCount: state.breeds.length + (state.hasReachedMax ? 0 : 1),
               separatorBuilder: (context, index) => const SizedBox(
                 height: 20.0,
               ),
@@ -242,16 +250,15 @@ class HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   ),
-                  /* color: Colors.red, */
                 ),
               ),
             ),
             Positioned(
               top: -10.0,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-                child: Hero(
-                  tag: catInfo.id,
+              child: Hero(
+                tag: catInfo.id,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                   child: FadeInImage(
                     width: size.width * 0.35,
                     height: size.height * 0.17,
@@ -259,13 +266,19 @@ class HomeScreenState extends State<HomeScreen> {
                     fit: BoxFit.cover,
                     placeholder:
                         const AssetImage('assets/images/placeholder.png'),
-                    image: catInfo.image != null &&
-                            catInfo.image!.url.isNotEmpty
-                        ? NetworkImage(catInfo.image!.url)
-                        : const AssetImage('assets/images/placeholder.png')
-                            as ImageProvider, // Si es nulo, muestra el placeholder
+                    image:
+                        catInfo.image != null && catInfo.image!.url.isNotEmpty
+                            ? NetworkImage(catInfo.image!.url)
+                            : const AssetImage('assets/images/placeholder.png')
+                                as ImageProvider,
                     imageErrorBuilder: (context, error, stackTrace) {
-                      return Image.asset('assets/images/placeholder.png');
+                      return SizedBox(
+                          width: size.width * 0.35,
+                          height: size.height * 0.17,
+                          child: Image.asset(
+                            'assets/images/placeholder.png',
+                            fit: BoxFit.cover,
+                          ));
                     },
                   ),
                 ),
